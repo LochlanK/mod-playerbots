@@ -724,16 +724,33 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
         // Single RNG instance for all shuffling
         std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
 
+        uint32 totalRatio = 0;
+        uint32 allowedAllianceCount = 0;
+        uint32 remainder = 0;
         // Only need to track the Alliance count, as it's in Phase 1
-        uint32 totalRatio = sPlayerbotAIConfig->randomBotAllianceRatio + sPlayerbotAIConfig->randomBotHordeRatio;
-        uint32 allowedAllianceCount = maxAllowedBotCount * (sPlayerbotAIConfig->randomBotAllianceRatio) / totalRatio;
+        if(sPlayerbotAIConfig->randomBotsJoinOneFactionOnly == 1){
+            //Horde = 0 Alliance = 1
+            if(sPlayerbotAIConfig->randomBotFactionHordeOrAli == 0){
+                //All Horde
+                totalRatio = 100;
+                allowedAllianceCount = maxAllowedBotCount * (0) / totalRatio;
+                remainder = maxAllowedBotCount * (0) % totalRatio;
+            }else{
+                //All Aliance
+                totalRatio = 100;
+                allowedAllianceCount = maxAllowedBotCount * (100) / totalRatio;
+                remainder = maxAllowedBotCount * (100) % totalRatio;
+            }
 
-        uint32 remainder = maxAllowedBotCount * (sPlayerbotAIConfig->randomBotAllianceRatio) % totalRatio;
-
-        // Fix #1082: Randomly add one based on reminder
-        if (remainder && urand(1, totalRatio) <= remainder)
-        {
-            allowedAllianceCount++;
+        }else{
+            totalRatio = sPlayerbotAIConfig->randomBotAllianceRatio + sPlayerbotAIConfig->randomBotHordeRatio;
+            allowedAllianceCount = maxAllowedBotCount * (sPlayerbotAIConfig->randomBotAllianceRatio) / totalRatio;
+            remainder = maxAllowedBotCount * (sPlayerbotAIConfig->randomBotAllianceRatio) % totalRatio;
+            // Fix #1082: Randomly add one based on reminder
+            if (remainder && urand(1, totalRatio) <= remainder)
+            {
+                allowedAllianceCount++;
+            }
         }
 
         // Determine which accounts to use based on EnablePeriodicOnlineOffline
