@@ -24,7 +24,7 @@ public:
     {
         static ChatCommandTable botExtendedCommandTable = {
             {"createrandombot", HandleCreateRandomBot, SEC_GAMEMASTER, Console::Yes},
-            {"setmaxrandombots", HandleSetMaxRandomBots, SEC_ADMINISTRATOR, Console::Yes}
+            {"setmaxrandombots", HandleSetMaxRandomBots, SEC_GAMEMASTER, Console::Yes}
         };
 
         static ChatCommandTable playerbotsExtendedTable = {
