@@ -19,20 +19,18 @@ class playerbotsExtended_commandscript : public CommandScript
 public:
     playerbotsExtended_commandscript() : CommandScript("playerbotsExtended_commandscript") { }
 
-    std::vector<ChatCommand> GetCommands() const override
+    ChatCommandTable GetCommands() const override
     {
-        static std::vector<ChatCommand> botExtendedCommandTable =
-        {
-            { "createrandombot", SEC_GAMEMASTER, true, &HandleCreateRandomBot, "" },
-            { "setmaxrandombots", SEC_GAMEMASTER, true, &HandleSetMaxRandomBots, "" }
+        static ChatCommandTable botExtendedCommandTable = {
+            {"createrandombot", HandleCreateRandomBot, SEC_GAMEMASTER, Console::Yes},
+            {"setmaxrandombots", HandleSetMaxRandomBots, SEC_ADMINISTRATOR, Console::Yes}
         };
 
-        static std::vector<ChatCommand> commandTable =
-        {
-            { "playerbotx", SEC_GAMEMASTER, true, nullptr, "", botExtendedCommandTable }
+        static ChatCommandTable playerbotsExtendedTable = {
+            {"playerbotx", botExtendedCommandTable}
         };
 
-        return commandTable;
+        return playerbotsExtendedTable;
     }
 
     // .playerbotx createrandombot
