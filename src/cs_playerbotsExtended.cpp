@@ -38,19 +38,9 @@ public:
     static bool HandleCreateRandomBot(ChatHandler* handler, const char* /*args*/)
     {
 
-        if (!sRandomPlayerbotMgr){
-            handler->PSendSysMessage("There Seems To Be An Issue With The Playerbots Mod, the Singleton sRandomPlayerbotMgr is null");
-            return false;
-        }
-        
-        uint32 before = sRandomPlayerbotMgr->GetRandomBotCount(); // current bots
-
         RandomPlayerbotFactory::CreateRandomBots(); // fills up to max
 
-        uint32 after = sRandomPlayerbotMgr->GetRandomBotCount(); // bots after creation
-        uint32 created = after - before;
-
-        handler->PSendSysMessage("Created %u random bot(s).", created);
+        handler->PSendSysMessage("New Random Player Bots Created");
 
         return true;
     }
