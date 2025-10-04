@@ -19,6 +19,7 @@
 #include "PerformanceMonitor.h"
 #include "PlayerbotMgr.h"
 #include "RandomPlayerbotMgr.h"
+#include "RandomPlayerbotFactory.h"
 #include "ScriptMgr.h"
 
 using namespace Acore::ChatCommands;
@@ -41,6 +42,11 @@ public:
             {"unlink", HandleUnlinkAccountCommand, SEC_PLAYER, Console::No},
         };
 
+        static ChatCommandTable botExtendedCommandTable = {
+            {"createrandombot", HandleCreateRandomBots, SEC_GAMEMASTER, Console::Yes},
+            {"setmaxrandombots", HandleSetMaxRandomBots, SEC_GAMEMASTER, Console::Yes},
+        };
+
         static ChatCommandTable playerbotsCommandTable = {
             {"bot", HandlePlayerbotCommand, SEC_PLAYER, Console::No},
             {"gtask", HandleGuildTaskCommand, SEC_GAMEMASTER, Console::Yes},
@@ -48,6 +54,7 @@ public:
             {"rndbot", HandleRandomPlayerbotCommand, SEC_GAMEMASTER, Console::Yes},
             {"debug", playerbotsDebugCommandTable},
             {"account", playerbotsAccountCommandTable},
+            {"playerbotx", botExtendedCommandTable},
         };
 
         static ChatCommandTable commandTable = {
@@ -55,6 +62,41 @@ public:
         };
 
         return commandTable;
+    }
+
+    static bool HandleCreateRandomBots(ChatHandler* handler, const char* /*args*/)
+    {
+
+        RandomPlayerbotFactory::CreateRandomBots(); // fills up to max
+
+        handler->PSendSysMessage("New Random Player Bots Created");
+
+        return true;
+    }
+
+    static bool HandleSetMaxRandomBots(ChatHandler* handler, const char* args)
+    {
+        if (!args || !*args)
+        {
+            handler->PSendSysMessage("Usage: .playerbotx setmaxrandombots <number>");
+            return false;
+        }
+
+        // Convert input safely
+        char* endPtr = nullptr;
+        unsigned long count = strtoul(args, &endPtr, 10);
+
+        // Check for invalid input or overflow
+        if (*endPtr != '\0' || count > UINT32_MAX)
+        {
+            handler->PSendSysMessage("Invalid number: %s", args);
+            return false;
+        }
+
+        sPlayerbotAIConfig->maxRandomBots = static_cast<int32>(count);
+        handler->PSendSysMessage("Max random bot count set to %u.", static_cast<int32>(count));
+
+        return true;
     }
 
     static bool HandlePlayerbotCommand(ChatHandler* handler, char const* args)

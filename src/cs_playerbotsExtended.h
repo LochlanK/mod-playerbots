@@ -1,1 +1,0 @@
-void AddSC_playerbotsExtended_commandscript();
