@@ -39,7 +39,7 @@ public:
     {
 
         if (!sRandomPlayerbotMgr){
-            handler->PSendSysMessage("There Seems To Be An Issue With The Playerbots Mod, the Singleton sRandomPlayerbotMgr is null")
+            handler->PSendSysMessage("There Seems To Be An Issue With The Playerbots Mod, the Singleton sRandomPlayerbotMgr is null");
             return false;
         }
         
