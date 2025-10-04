@@ -65,8 +65,8 @@ public:
             return false;
         }
 
-        sPlayerbotAIConfig->maxRandomBots = static_cast<uint32>(count);
-        handler->PSendSysMessage("Max random bot count set to %u.", static_cast<uint32>(count));
+        sPlayerbotAIConfig->maxRandomBots = static_cast<int32>(count);
+        handler->PSendSysMessage("Max random bot count set to %u.", static_cast<int32>(count));
 
         return true;
     }
