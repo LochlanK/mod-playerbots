@@ -6,6 +6,7 @@
 #include "PlayerbotMgr.h"
 #include "PlayerbotAIConfig.h"
 #include "RandomPlayerbotMgr.h"
+#include "RandomPlayerbotFactory.h"
 #include "ScriptMgr.h"
 
 using namespace Acore::ChatCommands;
@@ -36,11 +37,21 @@ public:
     // .playerbotx createrandombot
     static bool HandleCreateRandomBot(ChatHandler* handler, const char* /*args*/)
     {
-        if (!sRandomPlayerbotMgr)
-            return false;
 
-        sRandomPlayerbotMgr->CreateRandomBot();
-        handler->PSendSysMessage("Created a new random bot.");
+        if (!sRandomPlayerbotMgr){
+            handler->PSendSysMessage("There Seems To Be An Issue With The Playerbots Mod, the Singleton sRandomPlayerbotMgr is null")
+            return false;
+        }
+        
+        uint32 before = sRandomPlayerbotMgr->GetRandomBotCount(); // current bots
+
+        RandomPlayerbotFactory::CreateRandomBots(); // fills up to max
+
+        uint32 after = sRandomPlayerbotMgr->GetRandomBotCount(); // bots after creation
+        uint32 created = after - before;
+
+        handler->PSendSysMessage("Created %u random bot(s).", created);
+
         return true;
     }
 
