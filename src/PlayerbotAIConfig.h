@@ -78,6 +78,10 @@ public:
 
     bool enabled;
     bool disabledWithoutRealPlayer;
+    //Flag to enable the single faction logic.
+    bool randomBotsJoinOneFactionOnly;
+    //set 0 for horde, 1 for Alliance
+    int randomBotFactionHordeOrAli = 0;
     bool EnableICCBuffs;
     bool allowAccountBots, allowGuildBots, allowTrustedAccountBots;
     bool randomBotGuildNearby, randomBotInvitePlayer, inviteChat;

@@ -12,6 +12,7 @@
 #   GENERAL SETTINGS
 #    PLAYERBOTS SETTINGS
 #        GENERAL
+#        FACTION OPTIONS
 #        SUMMON OPTIONS
 #        MOUNT
 #        GEAR
@@ -188,6 +189,25 @@ AiPlayerbot.AutoInitEquipLevelLimitRatio = 1.0
 
 # Bot automatically trains spells when talking to trainer (yes = train all available spells as long as the bot has the money, free = auto trains with no money cost, no = only list spells)
 AiPlayerbot.AutoTrainSpells = yes
+
+#
+#
+#
+####################################################################################################
+
+####################################################################################################
+# FACTION SETTINGS
+#
+#
+
+
+# These Settings Allow for Forcing Bot Generation Onto a Single Faction Only. These Require Rebuilding of the module and Azerothcore to take effect.
+# 0 for disabled 1 for enabled.
+AiPlayerbot.OneFactionOnly = 1
+
+# Choose which faction, only enabled when AiPlayerbot.OneFactionOnly is enabled.
+# 0 for Horde, 1 for Alliance
+AiPlayerbot.FactionToJoin = 0
 
 #
 #

@@ -10,6 +10,7 @@
 #include "DatabaseEnv.h"
 #include "GuildMgr.h"
 #include "PlayerbotFactory.h"
+#include "PlayerbotAIConfig.h"
 #include "Playerbots.h"
 #include "ScriptMgr.h"
 #include "SharedDefines.h"
@@ -161,7 +162,22 @@ Player* RandomPlayerbotFactory::CreateRandomBot(WorldSession* session, uint8 cls
     LOG_DEBUG("playerbots", "Creating new random bot for class {}", cls);
 
     uint8 gender = rand() % 2 ? GENDER_MALE : GENDER_FEMALE;
-    bool alliance = rand() % 2 ? true : false;
+
+    //this is the default operation, we'll change this to use our sPlayerbotAIConfig->randomBotsJoinOneFactionOnly and sPlayerbotAIConfig->randomBotFactionHordeOrAli
+    bool alliance = false;
+
+    //Add our custom alliance selection logic.
+    if(sPlayerbotAIConfig->randomBotsJoinOneFactionOnly == 1){
+        //0 = Horde, 1 = Alliance
+        if(sPlayerbotAIConfig->randomBotFactionHordeOrAli == 0){
+            alliance = false; //Horde Only
+        }else{
+            alliance = true; //Alliance Only
+        }
+    }else{
+        alliance = rand() % 2 ? true : false; //Randomly Choose. Mathematically Pure 50/50 Chance.
+    }
+    
     std::vector<uint8> raceOptions;
     for (const auto& race : availableRaces[cls])
     {

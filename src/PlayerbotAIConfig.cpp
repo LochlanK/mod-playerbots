@@ -66,6 +66,10 @@ bool PlayerbotAIConfig::Initialize()
         return false;
     }
 
+    //**NEW** Single Faction Logic Config Settings, Will need to rebuild each time these settings are changed, as I cannot get reloading to work (even with default playerbot mod).
+    randomBotsJoinOneFactionOnly = sConfigMgr->GetOption<bool>("AiPlayerbot.OneFactionOnly", false); //defaults to false.
+    randomBotFactionHordeOrAli = sConfigMgr->GetOption<int>("AiPlayerbot.FactionToJoin", 0); //0 forces bots to join Horde only. 1 forces bots to join Alliance Only.
+
     globalCoolDown = sConfigMgr->GetOption<int32>("AiPlayerbot.GlobalCooldown", 1500);
     maxWaitForMove = sConfigMgr->GetOption<int32>("AiPlayerbot.MaxWaitForMove", 5000);
     disableMoveSplinePath = sConfigMgr->GetOption<int32>("AiPlayerbot.DisableMoveSplinePath", 0);
