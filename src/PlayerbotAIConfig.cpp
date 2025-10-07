@@ -70,6 +70,13 @@ bool PlayerbotAIConfig::Initialize()
     randomBotsJoinOneFactionOnly = sConfigMgr->GetOption<bool>("AiPlayerbot.OneFactionOnly", false); //defaults to false.
     randomBotFactionHordeOrAli = sConfigMgr->GetOption<int>("AiPlayerbot.FactionToJoin", 0); //0 forces bots to join Horde only. 1 forces bots to join Alliance Only.
 
+    //**NEW** Min and Max Sell and Buy Multipliers
+    randomBotMinSellMult = sConfigMgr->GetOption<int>("AiPlayerbot.MinSellMultiplier", 30); //Sets min to 30% of vendor value as default or if player has entered a valid int.
+    randomBotMaxSellMult = sConfigMgr->GetOption<int>("AiPlayerbot.MaxSellMultiplier", 95); //Sets max to 95% of vendor value as default of if player has entered a valid int.
+    randomBotMinBuyMult = sConfigMgr->GetOption<int>("AiPlayerbot.MinBuyMultiplier", 120); //sets the minimum buy rate relative to vendor price. Will Buy at percentage of vendor rate.
+    randomBotMaxBuyMult = sConfigMgr->GetOption<int>("AiPlayerbot.MaxBuyMultiplier", 500); //sets the maximum buy rate relative to vendor price. Will Buy at percentage of vendor rate.
+
+
     globalCoolDown = sConfigMgr->GetOption<int32>("AiPlayerbot.GlobalCooldown", 1500);
     maxWaitForMove = sConfigMgr->GetOption<int32>("AiPlayerbot.MaxWaitForMove", 5000);
     disableMoveSplinePath = sConfigMgr->GetOption<int32>("AiPlayerbot.DisableMoveSplinePath", 0);

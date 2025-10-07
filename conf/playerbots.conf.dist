@@ -13,6 +13,7 @@
 #    PLAYERBOTS SETTINGS
 #        GENERAL
 #        FACTION OPTIONS
+#        TRADE OPTIONS
 #        SUMMON OPTIONS
 #        MOUNT
 #        GEAR
@@ -196,7 +197,7 @@ AiPlayerbot.AutoTrainSpells = yes
 ####################################################################################################
 
 ####################################################################################################
-# FACTION SETTINGS
+# FACTION OPTIONS
 #
 #
 
@@ -208,6 +209,28 @@ AiPlayerbot.OneFactionOnly = 1
 # Choose which faction, only enabled when AiPlayerbot.OneFactionOnly is enabled.
 # 0 for Horde, 1 for Alliance
 AiPlayerbot.FactionToJoin = 0
+
+#
+#
+#
+####################################################################################################
+
+####################################################################################################
+# TRADE OPTIONS
+#
+#
+
+
+# These Settings Allow for setting the random sell multiplier range.
+# Random bots will trade with these as percentages of the vendor rate. 30 = 30% of vendor Rate, 95 = 95% of vendor rate.
+AiPlayerbot.MinSellMultiplier = 30
+AiPlayerbot.MaxSellMultiplier = 95
+
+
+# These Settings Allow for setting the random buy multiplier range.
+# Random bots will trade with these as percentages of the vendor rate. 80 = 80% of vendor Rate, 500 = 500% of vendor rate.
+AiPlayerbot.MinBuyMultiplier = 120
+AiPlayerbot.MaxBuyMultiplier = 500
 
 #
 #
